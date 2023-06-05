@@ -4,6 +4,7 @@ const app = express();
 
 // Middlewares
 app.use(express.json()); // Body parser
+app.use('/auth', require('./routes/authRouter'))
 
 // Routes
 app.get('/', (req, res) => {

@@ -2,7 +2,7 @@
   "name": "server",
   "version": "1.0.0",
   "description": "backend for heatcode",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/ntr0pie/heatcode/issues"
   },
-  "homepage": "https://github.com/ntr0pie/heatcode#readme"
+  "homepage": "https://github.com/ntr0pie/heatcode#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }
