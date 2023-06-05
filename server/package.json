@@ -1,0 +1,24 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "backend for heatcode",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ntr0pie/heatcode.git"
+  },
+  "keywords": [
+    "heatcode",
+    "programming",
+    "leetcode"
+  ],
+  "author": "ntr0pie",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ntr0pie/heatcode/issues"
+  },
+  "homepage": "https://github.com/ntr0pie/heatcode#readme"
+}
