@@ -5,19 +5,23 @@ import { useNavigate } from 'react-router-dom';
 
 
 export default function Authentication({isLoggedInState, authTypeState}) {
-    function handleFormSubmit(event){
+    const navigate = useNavigate();
+
+    async function handleFormSubmit(event){
         event.preventDefault();
         const userData = {email, password};
-        // const authUrl = '/auth' + authTypeState.state === 'login' ? '/login' : '/signup'
-        const authUrl = authTypeState.state === 'login' ? '/login' : '/signup'
+        const SERVER = 'http://localhost:3001/';
+        const authType = authTypeState.state === 'login' ? '/login' : '/signup';
+        // const reqUrl = SERVER + 'auth' + authType;
+        const testUrl = SERVER + 'auth' + '/test';
         try{
-            const response = await axios.post(authUrl, userData);
+            console.log(`Authentication: \n${testUrl} \n[${userData.email},${userData.password}]`);
+            const response = await axios.post(testUrl, userData);
             console.log(response.data);
             isLoggedInState.setter(true);
-            const navigate = useNavigate();
             navigate('/');
         }
-        catch(erorr){
+        catch(error){
             console.log(error);
         }
     }
