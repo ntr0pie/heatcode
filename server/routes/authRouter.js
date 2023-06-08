@@ -1,16 +1,17 @@
 const express = require('express');
 const router = express.Router();
+const authController = require('../controllers/authController');
 
-router.post('/register', (req, res) => {
-    // todo
+router.post('/test', (req, res) => {
+    const email = req.body.email;
+    const password = req.body.password;
+    res.status(200).json({
+        email, password
+    });
 })
 
-router.post('/login', (req, res) => {
-    // todo
-})
-
-router.post('/logout', (req, res) => {
-    // todo 
-})
+router.post('/signup', authController.signup);
+router.post('/login', authController.login);
+router.post('/logout', authController.logout);
 
 module.exports = router;
