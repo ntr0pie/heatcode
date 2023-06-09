@@ -11,19 +11,26 @@ export default function Authentication({isLoggedInState, authTypeState}) {
         event.preventDefault();
         const userData = {email, password};
         const SERVER = 'http://localhost:3001/';
+
+        // Dev
         const authType = authTypeState.state === 'login' ? '/login' : '/signup';
+        const reqUrl = SERVER + 'auth' + authType;
+
+        // Test
+        // const authType= '/test'
         // const reqUrl = SERVER + 'auth' + authType;
-        const testUrl = SERVER + 'auth' + '/test';
+
         try{
-            console.log(`Authentication: \n${testUrl} \n[${userData.email},${userData.password}]`);
-            const response = await axios.post(testUrl, userData);
+            console.log(`Authentication: \n${reqUrl} \n[${userData.email},${userData.password}]`);
+            const response = await axios.post(reqUrl, userData);
             console.log(response.data);
             isLoggedInState.setter(true);
-            navigate('/');
+            navigate('/'); // goto '/'
         }
         catch(error){
             console.log(error);
         }
+
     }
 
     const [email, setEmail] = useState('');

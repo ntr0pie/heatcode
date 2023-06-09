@@ -6,6 +6,7 @@ router.post('/test', (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
     res.status(200).json({
+        message: "test successful",
         email, password
     });
 })
