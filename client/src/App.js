@@ -1,6 +1,7 @@
 import './App.css';
 import Header from './components/Header/Header';
-import Main from './components/Main/Main';
+import Home from './components/Home/Home';
+import Workspace from './components/Workspace/Workspace';
 import Auth from './components/Authentication/Authentication.js'
 import Footer from './components/Footer/Footer';
 import { useState } from 'react';
@@ -22,11 +23,14 @@ function App() {
       <Header isLoggedInState={isLoggedInState} authTypeState = {authTypeState} />
 
       <Routes>
-        {/* Main for landing page and workspace */}
-          <Route exact path='/' element={<Main isLoggedInState = {isLoggedInState}/>} />
+        {/* Home for landing page */}
+          <Route exact path='/' element={<Home isLoggedInState = {isLoggedInState}/>} />
 
         {/* Authentication for login and signup */}
           <Route path='/auth' element={<Auth isLoggedInState = {isLoggedInState} authTypeState = {authTypeState} />}/>
+
+        {/* Workspace for logged in users */}
+          <Route path='/ws' element={<Workspace isLoggedInState = {isLoggedInState} authTypeState = {authTypeState} />}/>
           
       </Routes>
       <Footer />

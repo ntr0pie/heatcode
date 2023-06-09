@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Button from '@mui/material/Button';
+import { Button } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -13,22 +13,24 @@ export default function Authentication({isLoggedInState, authTypeState}) {
         const SERVER = 'http://localhost:3001/';
 
         // Dev
-        const authType = authTypeState.state === 'login' ? '/login' : '/signup';
-        const reqUrl = SERVER + 'auth' + authType;
+        // const authType = authTypeState.state === 'login' ? '/login' : '/signup';
+        // const reqUrl = SERVER + 'auth/' + authType;
+        const reqUrl = SERVER + 'auth/' + authTypeState.state;
 
         // Test
         // const authType= '/test'
         // const reqUrl = SERVER + 'auth' + authType;
 
         try{
-            console.log(`Authentication: \n${reqUrl} \n[${userData.email},${userData.password}]`);
             const response = await axios.post(reqUrl, userData);
             console.log(response.data);
-            isLoggedInState.setter(true);
-            navigate('/'); // goto '/'
-        }
-        catch(error){
+            isLoggedInState.setter(response.data.user.status);
+            navigate('/ws'); // Go to workspace
+        } catch(error){
             console.log(error);
+            const errorMessage = error.response.data.message
+            alert(errorMessage + ' Please try again.');
+            navigate('/auth'); // Go to login page again
         }
 
     }
@@ -62,7 +64,15 @@ export default function Authentication({isLoggedInState, authTypeState}) {
             />
 
             <Button type='submit'>
-                {authTypeState.state === 'login' ? 'Login' : 'Sign Up'}
+                {
+                    authTypeState.state === 'login'
+                    ? 'Login' 
+                    : authTypeState.state === 'signup'
+                    ? 'Sign Up'
+                    : authTypeState.state === 'logout'
+                    ? 'Logout'
+                    : 'Error'
+                }
             </Button>
         </form>
     </div>

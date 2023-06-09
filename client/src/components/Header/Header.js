@@ -1,6 +1,7 @@
 import React from 'react'
-import Button from '@mui/material/Button';
+import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios';
 
 export default function Header({isLoggedInState, authTypeState}) {
   // const [isSubmitting, setIsSubmitting] = useState(false); 
@@ -11,10 +12,38 @@ export default function Header({isLoggedInState, authTypeState}) {
     authTypeState.setter(authType)
   }
 
+  async function handleLogoutBtnClick(){
+    const userData = {email: '', password: '', status: true};
+    const SERVER = 'http://localhost:3001/';
+    const reqUrl = SERVER + 'auth/logout';
+    try{
+        const response = await axios.post(reqUrl, userData);
+        console.log(response.data);
+        isLoggedInState.setter(response.data.user.status);
+        navigate('/'); // Go to workspace
+    } catch(error){
+        console.log(error);
+        const errorMessage = error.response.data.message
+        alert(errorMessage + ' Please try again.');
+    }
+
+}
+
   return (
     <div className='header'>
-      <Button onClick={() => handleAuthButtonClick('/auth', 'login')}>Login</Button>
-      <Button onClick={() => handleAuthButtonClick('/auth', 'signup')}>Sign Up</Button>
+      {
+        !isLoggedInState.state ? (
+          <div>
+            <Button onClick={() => handleAuthButtonClick('/auth', 'login')}>Login</Button>
+            <Button onClick={() => handleAuthButtonClick('/auth', 'signup')}>Sign Up</Button>
+          </div>
+        ) : (
+          <div>
+            <Button onClick={handleLogoutBtnClick}>Log Out</Button>
+          </div>
+        )
+      }
+
     </div>
   )
 }
